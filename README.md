@@ -10,6 +10,7 @@ Low-level implementations of some interesting functions found in deep learning
 * _Node2Vec_: Generating random walks on graph networks to generate skipgram-style node embeddings. Note: (need to)
 * _KD Tree_: A K dimensional tree data structure with function provided for nearest neighbor search. Used a lot in information retrieval/similarity search applications like __Spotify's *Annoy*__ and __Waymo's dataset *Content Search*__ tool.
 * _Locally Sensitive Hashing_: LSH is used in deep learning in similarity search applications. It is a spatial hashing technique which ensures spatially close vectors are assigned the same hash value. Used in __Shazam__, __Uber's fraud detecton tool, __Google's Reformer__ transformer architecture among others.
+* _Knowledge Distillation_: Template for knowledge distillation training. Used in __Parallel WaveNet__ training, among other to reduce model size. Useful only for models with softmax outputs. Anneal temperature as training progresses for stable gradients.
 
 ### Debugging Tools
 
