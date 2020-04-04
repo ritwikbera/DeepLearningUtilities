@@ -84,10 +84,7 @@ class KDNode(Node):
                     current = current.right
 
     def create_subnode(self, data):
-        return self.__class__(data,
-                axis=self.sel_axis,
-                sel_axis=(self.sel_axis+1)%self.dimensions,
-                dimensions=self.dimensions)
+        return self.__class__(data, axis=(self.axis+1)%self.dimensions, dimensions=self.dimensions)
 
     def axis_dist(self, point, axis):
         return abs(self.data[axis] - point[axis])
@@ -96,10 +93,7 @@ class KDNode(Node):
         r = range(self.dimensions)
         return sum([self.axis_dist(point, i) for i in r])
 
-    def _search_node(self, point, k, results, counter):
-        if not self:
-            return
-
+    def _search_node(self, point, k, results):
         nodeDist = self.dist(point)
 
         # Add current node to the priority queue if it closer than
@@ -108,7 +102,9 @@ class KDNode(Node):
         # If the heap is at its capacity, we need to check if the
         # current node is closer than the current farthest node, and if
         # so, replace it.
-        item = (-nodeDist, next(counter), self)
+
+        # Higher nodeDist means lower priority and towards end of queue
+        item = (-nodeDist, self)
         if len(results) >= k:
             if -nodeDist > results[0][0]:
                 heapq.heapreplace(results, item)
@@ -116,23 +112,24 @@ class KDNode(Node):
             heapq.heappush(results, item)
 
         plane_dist = abs(point[self.axis] - self.data[self.axis])
-  
-        if point[self.axis] < self.data[self.axis]:
-            if self.left is not None:
-                self.left._search_node(point, k, results, counter)
-        else:
-            if self.right is not None:
-                self.right._search_node(point, k, results, counter)
 
-        # Search the other side of the splitting plane if it may contain
-        # points closer than the farthest point in the current results.
-        if -plane_dist > results[0][0] or len(results) < k:
+        try:
             if point[self.axis] < self.data[self.axis]:
-                if self.right is not None:
-                    self.right._search_node(point, k, results, counter)
+                self.right._search_node(point, k, results)
             else:
-                if self.left is not None:
-                    self.left._search_node(point, k, results, counter)
+                self.left._search_node(point, k, results)
+  
+            # Search the other side of the splitting plane if it may contain
+            # points closer than the farthest point in the current results.
+            if -plane_dist > results[0][0] or len(results) < k:
+                if point[self.axis] < self.data[self.axis]:
+                    self.left._search_node(point, k, results)
+                else:
+                    self.right._search_node(point, k, results)
+
+            # if left or right node doesn't exist
+        except AttributeError:
+            pass
 
 def create(point_list, dimensions, axis=0):
 
@@ -161,7 +158,7 @@ if __name__=='__main__':
 
     root = create(point_list, dimensions)
     search_point = [30,40]
-    root._search_node(search_point, k, results, itertools.count())
+    root._search_node(search_point, k, results)
 
-    sorted_results = [(node.data, -d) for d, _, node in sorted(results, reverse=True)]
+    sorted_results = [(node.data, -d) for d, node in sorted(results, reverse=True)]
     print(sorted_results)
