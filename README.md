@@ -3,6 +3,7 @@ Low-level implementations of some interesting functions found in deep learning
 
 ### Implementations of theoretical concepts
 
+* _Weighted Sampling with Segment Trees_: Tree based random weighted sampling for _O(log N)_ sampling time complexity. These can be updated on the fly after an initial build of the tree.
 * _Negative Sampling_ : Generate fixed set of negative samples to be paired with equal number of positive samples for balanced training on unbalanced datasets.
 * _Alias Method for Efficient Discrete Sampling_ : Constant time sampling method for discrete distributions.
 * _Beam Search_ : Used a lot in language models' inference for most likely sequence decoding
