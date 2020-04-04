@@ -8,7 +8,8 @@ Low-level implementations of some interesting functions found in deep learning
 * _Beam Search_ : Used a lot in language models' inference for most likely sequence decoding
 * _K-Means Clustering based Layer-wise Weight Quantization_ : Idea introduced in _Deep Compression_ paper to reduce number of unique weights to be stored for a NN model.
 * _Node2Vec_: Generating random walks on graph networks to generate skipgram-style node embeddings. Note: (need to)
-* _KD Tree_: A K dimensional tree data structure with function provided for nearest neighbor search. Used a lot in information retrieval applications like __Spotify's *Annoy*__ and __Waymo's dataset *Content Search*__ tool.
+* _KD Tree_: A K dimensional tree data structure with function provided for nearest neighbor search. Used a lot in information retrieval/similarity search applications like __Spotify's *Annoy*__ and __Waymo's dataset *Content Search*__ tool.
+* _Locally Sensitive Hashing_: LSH is used in deep learning in similarity search applications. It is a spatial hashing technique which ensures spatially close vectors are assigned the same hash value. Used in __Shazam__, __Uber's fraud detecton tool, __Google's Reformer__ transformer architecture among others.
 
 ### Debugging Tools
 
