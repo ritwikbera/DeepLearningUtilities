@@ -6,14 +6,17 @@ Low-level implementations of some interesting functions found in deep learning
 #### Sampling Methods
 
 * _Weighted Sampling with Segment Trees_: Tree based random weighted sampling for _O(log N)_ sampling time complexity. These can be updated on the fly after an initial build of the tree.
+Useful while implementing Prioritized Experience Replay for RL applications.
 
 * _Negative Sampling_ : Generate fixed set of negative samples to be paired with equal number of positive samples for balanced training on unbalanced datasets.
 
-* _Alias Method for Efficient Discrete Sampling_ : Constant time sampling method for discrete distributions.
+* _Alias Method for Efficient Discrete Sampling_ : Constant time sampling method for discrete distributions by converting the multinomial sampling process into a binomial sampling process.
 
 * _Fast Random Sampling without Replacement_: Implements fast batched random sampling without replacement. No setup time needed. Only access time complexity exists which is _O(B log N)_ where B is batch size and N is number of elements to sample from.
 
-* _Markov Chain Monte Carlo_: Implements Metropoliton-Hastings to sample from a distribution.
+* _Reservoir Sampling_: A randomized algorithm to sample from streaming data, where each incoming data point has an equal probability (mathematically provable) of being sampled.
+
+* _Markov Chain Monte Carlo_: A Monte Carlo randomized algorithm, Metropoliton-Hastings, to sample from a distribution.
 
 #### Data Structures for Deep Learning
 
@@ -31,16 +34,6 @@ Low-level implementations of some interesting functions found in deep learning
 
 * _Beam Search_ : Used a lot in language models' inference for most likely sequence decoding.
 
-* _K-Means Clustering based Layer-wise Weight Quantization_ : Idea introduced in _Deep Compression_ paper to reduce number of unique weights to be stored for a NN model.
-
 * _Node2Vec_: Generating random walks on graph networks to generate skipgram-style node embeddings. Note: (need to add test code).
 
-* _Knowledge Distillation_: Template for knowledge distillation training. Used in __Parallel WaveNet__ training, among other to reduce model size. Useful only for models with softmax outputs. Anneal temperature as training progresses for stable gradients.
 
-### PyTorch Tools
-
-* _Memory Profiling with PyTorch Hooks_ : Useful in optimizing models, can help visualize memory usage during checkpointed training as well (Note: This is is not working with latest PyTorch update).
-
-* _Unit test to verify parameter behavior during training_ : Useful while training GANs or during transfer learning where only a certain subset of parameters need to be tuned during training.
-
-* _DataLoader with Cache_
