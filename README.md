@@ -12,9 +12,11 @@ Useful while implementing Prioritized Experience Replay for RL applications.
 
 * _Alias Method for Efficient Discrete Sampling_ : Constant time sampling method for discrete distributions by converting the multinomial sampling process into a binomial sampling process.
 
-* _Fast Random Sampling without Replacement_: Implements fast batched random sampling without replacement. No setup time needed. Only access time complexity exists which is _O(B log N)_ where B is batch size and N is number of elements to sample from.
+* _Fast Random Sampling without Replacement_: Implements fast batched random sampling without replacement. No setup time needed. Only access time complexity exists which is _O(B log N)_ where B is batch size and N is number of elements to sample from. This technique may be used in training neural networks via boosting.
 
 * _Reservoir Sampling_: A randomized algorithm to sample from streaming data, where each incoming data point has an equal probability (mathematically provable) of being sampled.
+
+* _Shuffle_: Implements a randomized algorithm, the Fisher-Yates shuffle, to shuufle a dataset so that each data-point can be placed at each position with uniform probability. Perfectly random shuffling is necessary in deep learning, so that the model does not learn any artificial temporal characteristics across batches.
 
 * _Markov Chain Monte Carlo_: A Monte Carlo randomized algorithm, Metropoliton-Hastings, to sample from a distribution.
 
