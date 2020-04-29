@@ -1,9 +1,9 @@
-# Deep Learning Utilities
-Low-level implementations of some interesting functions found in deep learning
+# Deep Learning Concepts
+Low-level implementations of some interesting concepts found in deep learning research.
 
-### Implementations of theoretical concepts
+## Algorithms
 
-#### Sampling Methods
+### Sampling Algorithms
 
 * _Weighted Sampling with Segment Trees_: Tree based random weighted sampling for _O(log N)_ sampling time complexity. These can be updated on the fly after an initial build of the tree.
 Useful while implementing Prioritized Experience Replay for RL applications.
@@ -20,22 +20,29 @@ Useful while implementing Prioritized Experience Replay for RL applications.
 
 * _Markov Chain Monte Carlo_: A Monte Carlo randomized algorithm, Metropoliton-Hastings, to sample from a distribution.
 
-#### Data Structures for Deep Learning
+* _Node2Vec_: Generating random walks on graph networks to generate skipgram-style node embeddings. Node2Vec's randomized nature offers more efficient exploration of a graph than BFS/DFS. A single random walk of length l generates (l-k) length skipgrams for k nodes. Hence it efficiently employs sample reusability. Note: (need to add test code).
+
+### Miscellaneous
+
+* _Beam Search_ : A deterministic algorithm used a lot in language models' inference for most likely sequence decoding.
+
+## Data Structures
+
+#### Deterministic
 
 * _KD Tree_: A K dimensional tree data structure with function provided for nearest neighbor search. Used a lot in information retrieval/similarity search applications like __Spotify's *Annoy*__ and __Waymo's dataset *Content Search*__ tool.
 
     * __Spotify__ uses a KD Forest with the splitting planes being random hyperplanes and not just the elementary axes. More on this can be found on [Erik Bernhardsson's blog](https://erikbern.com/2015/10/01/nearest-neighbors-and-vector-models-part-2-how-to-search-in-high-dimensional-spaces.html)
 
-* _Locally Sensitive Hashing_: LSH is used in deep learning in similarity search applications. It is a spatial hashing technique which ensures spatially close vectors are assigned the same hash value. Used in __Shazam__, __Uber's fraud detecton tool__, __Google's Reformer__ transformer architecture among others.
+* _Heirarchical Softmax Tree_ : Generalizable softmax with _O(log V)_ training step complexity, owing to binary tree style construction. Inference still requires traversal of all possible tree paths to detect most likely output. This is used in training _word2vec_ models.
 
-* _Heirarchical Softmax_ : Generalizable softmax with _O(log V)_ training step complexity, owing to binary tree style construction. Inference still requires traversal of all possible tree paths to detect most likely output. Used in _word2vec_.
+#### Probabilistic
+
+* _Locally Sensitive Hashing_: LSH is used in deep learning in similarity search applications. It is a spatial hashing technique which ensures spatially close vectors are assigned the same hash value. Used in __Shazam__, __Uber's fraud detecton tool__, __Google's Reformer__ transformer architecture among others.
 
 * _Tensor Sketch_: Count sketch-based hashed transformations of high dimensional vectors. They transform high dimensional vectors to a low dimensional space (via random hashing). The vectors in the transformed space have similar geometric norms and relative spatial separation, which makes them useful to be used in a kernel. [_Compact Bilinear Pooling_](https://arxiv.org/abs/1511.06062) uses this to effeciently calculate outer product of high dimensional inputs and thus model second-order interaction effects in multimodal deep learning.
 
-#### Other Concepts
 
-* _Beam Search_ : Used a lot in language models' inference for most likely sequence decoding.
 
-* _Node2Vec_: Generating random walks on graph networks to generate skipgram-style node embeddings. Note: (need to add test code).
 
 
