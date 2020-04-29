@@ -3,7 +3,7 @@ Low-level implementations of some interesting functions found in deep learning
 
 ### Implementations of theoretical concepts
 
-#### Sampling Methods
+#### Sampling Algorithms
 
 * _Weighted Sampling with Segment Trees_: Tree based random weighted sampling for _O(log N)_ sampling time complexity. These can be updated on the fly after an initial build of the tree.
 Useful while implementing Prioritized Experience Replay for RL applications.
@@ -22,13 +22,17 @@ Useful while implementing Prioritized Experience Replay for RL applications.
 
 #### Data Structures for Deep Learning
 
+### Deterministic
+
 * _KD Tree_: A K dimensional tree data structure with function provided for nearest neighbor search. Used a lot in information retrieval/similarity search applications like __Spotify's *Annoy*__ and __Waymo's dataset *Content Search*__ tool.
 
     * __Spotify__ uses a KD Forest with the splitting planes being random hyperplanes and not just the elementary axes. More on this can be found on [Erik Bernhardsson's blog](https://erikbern.com/2015/10/01/nearest-neighbors-and-vector-models-part-2-how-to-search-in-high-dimensional-spaces.html)
 
-* _Locally Sensitive Hashing_: LSH is used in deep learning in similarity search applications. It is a spatial hashing technique which ensures spatially close vectors are assigned the same hash value. Used in __Shazam__, __Uber's fraud detecton tool__, __Google's Reformer__ transformer architecture among others.
+* _Heirarchical Softmax Tree_ : Generalizable softmax with _O(log V)_ training step complexity, owing to binary tree style construction. Inference still requires traversal of all possible tree paths to detect most likely output. This is used in training _word2vec_ models.
 
-* _Heirarchical Softmax_ : Generalizable softmax with _O(log V)_ training step complexity, owing to binary tree style construction. Inference still requires traversal of all possible tree paths to detect most likely output. Used in _word2vec_.
+### Probabilistic
+
+* _Locally Sensitive Hashing_: LSH is used in deep learning in similarity search applications. It is a spatial hashing technique which ensures spatially close vectors are assigned the same hash value. Used in __Shazam__, __Uber's fraud detecton tool__, __Google's Reformer__ transformer architecture among others.
 
 * _Tensor Sketch_: Count sketch-based hashed transformations of high dimensional vectors. They transform high dimensional vectors to a low dimensional space (via random hashing). The vectors in the transformed space have similar geometric norms and relative spatial separation, which makes them useful to be used in a kernel. [_Compact Bilinear Pooling_](https://arxiv.org/abs/1511.06062) uses this to effeciently calculate outer product of high dimensional inputs and thus model second-order interaction effects in multimodal deep learning.
 
