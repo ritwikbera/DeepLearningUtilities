@@ -18,9 +18,11 @@ Useful while implementing Prioritized Experience Replay for RL applications.
 
 * _Shuffle_: Implements a randomized algorithm, the Fisher-Yates shuffle, to shuufle a dataset so that each data-point can be placed at each position with uniform probability. Perfectly random shuffling is necessary in deep learning, so that the model does not learn any artificial temporal characteristics across batches.
 
-* _Markov Chain Monte Carlo_: A Monte Carlo randomized algorithm, Metropoliton-Hastings, to sample from a distribution.
-
 * _Node2Vec_: Generating random walks on graph networks to generate skipgram-style node embeddings. Node2Vec's randomized nature offers more efficient exploration of a graph than BFS/DFS. A single random walk of length l generates (l-k) length skipgrams for k nodes. Hence it efficiently employs sample reusability. Note: (need to add test code).
+
+* _Negative Edge Sampling on Graph_ : Efficient negative sampling for edges in a graph by computing outer-product like combination of nodes in batch of edges and deleting the true edges from the computed batch of edges. This was introduced in __Facebook's *PyTorch BigGraph*__ embedding learning algorithm for large knowledge graphs.
+
+* _Markov Chain Monte Carlo_: A Monte Carlo randomized algorithm, Metropoliton-Hastings, to sample from a distribution.
 
 ### Miscellaneous
 
