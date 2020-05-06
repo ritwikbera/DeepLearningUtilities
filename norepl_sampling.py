@@ -1,8 +1,31 @@
 import random
 import numpy as np 
 from copy import deepcopy
-from timeit import timeit
 from time import time 
+from sumtree_sampling import SegmentTree
+
+def segtree_swor(num_samples, sample_size, elements, probabilities):
+    samples = []
+    tree = SegmentTree(len(elements))
+    for i in range(len(elements)):
+        tree.add(probabilities[i], elements[i])
+
+    cached_probs = []
+
+    for _ in range(num_samples):
+        sample = []
+        if len(cached_probs) > 0:
+            [tree.update(idx, p) for (idx, p) in cached_probs]
+
+        for _ in range(sample_size):
+            (idx, p, data) = tree.get(random.uniform(0, tree.total()))
+            cached_probs.append((idx, p))
+            sample.append(data)
+            tree.update(idx, 0)
+
+        samples.append(sample)
+
+    return samples
 
 def naive_sampling(num_samples, sample_size, elements, probabilities):
     samples = []
@@ -11,10 +34,11 @@ def naive_sampling(num_samples, sample_size, elements, probabilities):
         candidate_elements = deepcopy(elements)        
 
         while len(sample) < sample_size:
-            candidate_element = random.choice(candidate_elements)            
+            candidate_idx = random.choice(range(len(candidate_elements)))
+            candidate_element = candidate_elements[candidate_idx]
 
             # probs consists of inclusion probabilities
-            if probabilities[candidate_element] >= random.random():
+            if probabilities[candidate_idx] >= random.random():
                 sample.append(candidate_element)
                 candidate_elements.remove(candidate_element)        
 
@@ -22,10 +46,6 @@ def naive_sampling(num_samples, sample_size, elements, probabilities):
     return samples
 
 def fast_sampling(num_samples, sample_size, elements, probabilities):
-
-    prob_dict = probabilities
-    # unpacking probabilites dictionary
-    probabilities = list(prob_dict.values())
 
     elements = np.array(elements)
 
@@ -46,18 +66,11 @@ def fast_sampling(num_samples, sample_size, elements, probabilities):
 if __name__=='__main__':
     
     num_elements = 20
-    num_samples = 1000
+    num_samples = 5
     sample_size = 5
 
     elements = list(np.random.randint(low=0,high=100,size=num_elements))
     probabilities = list(np.random.rand(num_elements))
-    probabilities = dict(zip(elements,probabilities))
-
-    # SETUP_CODE = ""
-
-    # TEST_CODE = '''naive_sampling(num_samples, sample_size, elements, probabilities)
-    # '''
-    # print(timeit(setup=SETUP_CODE,stmt=TEST_CODE,number=1))
 
     start = time()
     samples = naive_sampling(num_samples, sample_size, elements, probabilities)
@@ -67,4 +80,6 @@ if __name__=='__main__':
     samples = fast_sampling(num_samples, sample_size, elements, probabilities)
     print(time()-start)
 
-    # print(samples)
+    samples = globals()['segtree_swor'](num_samples, sample_size, elements, probabilities)
+
+    print(samples)
